@@ -6,7 +6,7 @@
             <v-flex xs2 md2 lg2>
                 <v-select attach :items="filterType" solo v-model="filter.type"></v-select>
             </v-flex>
-            <v-btn icon color="green darken-3"><v-icon color="white">search</v-icon></v-btn> 
+            <v-btn icon color="green darken-3" @click="searching()"><v-icon color="white">search</v-icon></v-btn> 
         </v-layout>
         <v-carousel>
             <v-carousel-item v-for="i in carouselItems" :key="i" :src="carouselItems[i-1].src"></v-carousel-item>
@@ -17,16 +17,15 @@
         </v-card>
         <br>
         <v-card height="300px">
-            <v-layout row>
-                &nbsp;
-                <v-btn light small icon><v-icon>arrow_forward</v-icon></v-btn>
-                <v-card-text>最新上架:</v-card-text>
-            </v-layout>
+            <v-card-text>最新上架:</v-card-text>
         </v-card>
         <br>
         <v-card height="300px">
             <v-card-text>熱賣推薦:</v-card-text>
         </v-card>
+        <back-to-top text="back to top" visibleoffset="0">
+            <v-btn icon large flat><v-icon large>keyboard_arrow_up</v-icon></v-btn>
+        </back-to-top>
         <bottom></bottom>
     </v-container>
 </template>
@@ -47,12 +46,11 @@ export default {
         }
     },
     methods:{
-    },
-    created() {
-        this.$nextTick(() => {
-        document.oncontextmenu = new Function("event.returnValue=false");
-        document.onselectstart = new Function("event.returnValue=false");
-      });
+        searching(){
+            if(this.search !=''){
+                this.$router.push('/search/'+ this.filter.type + '/' + this.search)
+            }
+        }
     },
     beforeMount(){
 

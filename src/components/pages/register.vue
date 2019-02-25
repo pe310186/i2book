@@ -16,10 +16,10 @@
                             <br>
                             <v-flex xs10 md10 lg10>
                                 <v-text-field label="姓名"  outline v-model="name" :rules="[() => !!name || '請輸入姓名']" required ref="name"></v-text-field>
-                                <v-text-field label="帳號" :error-messages="errorMessages" outline v-model="account" :rules="[() => !!account || '請輸入帳號']" required ref="account"></v-text-field>
+                                <v-text-field label="帳號" :error-messages="errorMessages1" outline v-model="account" :rules="[() => !!account || '請輸入帳號']" required ref="account"></v-text-field>
                                 <v-text-field label="密碼" outline v-model="password" type='password' :rules="[() => !!password || '請輸入密碼']" required ref="password"></v-text-field>
                                 <v-text-field label="確認密碼" outline v-model="passwordCheck" type='password' :rules="[() => !!passwordCheck || '請輸入確認密碼']" required ref="passwordCheck"></v-text-field>
-                                <v-text-field label="電子信箱" outline v-model="email" :rules="[() => !!email || '請輸入電子信箱']" required ref="email"></v-text-field>
+                                <v-text-field label="電子信箱" :error-messages="errorMessages2" outline v-model="email" :rules="[() => !!email || '請輸入電子信箱']" required ref="email"></v-text-field>
                                 <v-layout row>
                                     <v-text-field label="驗證碼" outline v-model="code"></v-text-field><div class="verify-box pointer" @click="createCode()"><identify :identifyCode="checkCode"></identify></div>
                                 </v-layout>
@@ -71,6 +71,10 @@
                 </v-card>
             </v-flex>
         </v-layout>
+        <back-to-top text="back to top" visibleoffset="0">
+            <v-btn icon large flat><v-icon large>keyboard_arrow_up</v-icon></v-btn>
+        </back-to-top>
+        <bottom></bottom>
     </v-container>
 </template>
 
@@ -89,15 +93,23 @@ export default {
             agreement:null,
             newsletter:null,
             formHasErrors: false,
-            errorMessages: ''
+            errorMessages1: '',
+            errorMessages2: '',
         }
     },
     watch: {
         'account' (newAccount,oldAccount){
             api.checkAccount(newAccount).then(()=>{
-                this.errorMessages = '此帳號已被使用'
+                this.errorMessages1 = '此帳號已被使用'
             }).catch(error=>{
-                this.errorMessages = ''
+                this.errorMessages1 = ''
+            })
+        },
+        'email' (newEmail,oldMail){
+            api.checkEmail(newEmail).then(()=>{
+                this.errorMessages2 = '此信箱已被使用'
+            }).catch(error=>{
+                this.errorMessages2 = ''
             })
         }
     },
@@ -147,6 +159,14 @@ export default {
             
             if(this.password !== this.passwordCheck){
                 alert("2次密碼不相同")
+                document.body.scrollTop = 0
+                document.documentElement.scrollTop = 0
+                this.createCode()
+                return
+            }
+
+            if(this.errorMessages1 !='' || this.errorMessages2 !=''){
+                alert("帳號或信箱已被使用")
                 document.body.scrollTop = 0
                 document.documentElement.scrollTop = 0
                 this.createCode()

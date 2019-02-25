@@ -5,6 +5,7 @@ import Home from '@/components/pages/home'
 import Login from '@/components/pages/login'
 import Member from '@/components/pages/member'
 import Register from '@/components/pages/register'
+import Search from '@/components/pages/search'
 
 Vue.use(Router)
 
@@ -37,6 +38,12 @@ export default new Router({
       path:'/register',
       name:'Register',
       component:Register,
+    },
+    {
+      path:'/search/:type/:searchname',
+      name:'Search',
+      component: Search,
+      props:true,
     }
   ]
 })
