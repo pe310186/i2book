@@ -8,7 +8,7 @@
                 <v-flex xs10 md10 lg10>
                     <font size="6"><p><b>登入</b></p></font>
                     <v-text-field label="帳號" outline v-model="account"></v-text-field>
-                    <v-text-field label="密碼" outline v-model="password"></v-text-field>
+                    <v-text-field label="密碼" outline v-model="password" type="password"></v-text-field>
                 </v-flex>
                 <v-btn color="green accent-4" class="white--text" large @click="login()"><b>I2BOOKS會員登入</b></v-btn>
                 <v-btn flat small @click="forget()">忘記密碼?</v-btn>

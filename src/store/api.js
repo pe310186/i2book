@@ -39,5 +39,8 @@ export default {
     },
     changePass(token,id,data){
         return client.put('/account/password/'+id,data,{headers:{"Auth":token}})
+    },
+    getCarousel(){
+        return client.get('./carousel')
     }
 }

@@ -8,8 +8,10 @@
             </v-flex>
             <v-btn icon color="green darken-3" @click="searching()"><v-icon color="white">search</v-icon></v-btn> 
         </v-layout>
-        <v-carousel>
-            <v-carousel-item v-for="i in carouselItems" :key="i" :src="carouselItems[i-1].src"></v-carousel-item>
+        <v-carousel height="480px">
+            <v-carousel-item v-for="(item,i) in carouselItems" :key="i" next-icon="mdi-dark mdi-arrow-right">
+                <v-img :src="item.url" contain></v-img> 
+            </v-carousel-item>
         </v-carousel>
         <br>
         <v-card height="300px">
@@ -53,7 +55,12 @@ export default {
         }
     },
     beforeMount(){
-
+        let self = this
+        api.getCarousel().then(res=>{
+            console.log(res.data.pics)
+            self.carouselItems = res.data.pics
+        }).catch(error=>{
+        })
     },
     
 }
