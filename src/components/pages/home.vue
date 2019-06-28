@@ -3,14 +3,14 @@
         <top></top>
         <br>
         <br>
-        <middle></middle>
+        <middle :path="path"></middle>
         <bottom></bottom>
     </v-container>
 </template>
 
 <script>
 export default {
-
+    props:['path']
 }
 </script>
 

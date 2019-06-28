@@ -3,6 +3,8 @@ import Middle from './middle.vue'
 import Bottom from './bottom.vue'
 import Identify from './identify.vue'
 import BackToTop from 'vue-backtotop'
+import About from './about.vue'
+import Sell from './sell.vue'
 
 export default{
     Top:Top,
@@ -10,4 +12,6 @@ export default{
     Bottom : Bottom,
     Identify: Identify,
     BackToTop: BackToTop,
+    About: About,
+    Sell: Sell,
 }

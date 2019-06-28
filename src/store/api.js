@@ -42,5 +42,8 @@ export default {
     },
     getCarousel(){
         return client.get('./carousel')
+    },
+    getArticle(id){
+        return client.get('./article/'+id)
     }
 }
