@@ -4,7 +4,7 @@
         <v-layout row>
             <v-text-field placeholder="找好書..." solo  v-model="search"></v-text-field>
             <v-flex xs2 md2 lg2>
-                <v-select attach :items="filterType" solo v-model="filter.type"></v-select>
+                <v-select attach :items="filterType" solo v-model="filter.value" item-text="text" item-value="value"></v-select>
             </v-flex>
             <v-btn icon color="green darken-3" @click="searching()"><v-icon color="white">search</v-icon></v-btn> 
         </v-layout>
@@ -38,19 +38,19 @@ export default {
     data(){
         return{
             carouselItems:[],
-            filterType:['全文','書名','作者','出版社'],
+            filterType:[{text:'全文',value:0},{text:'書名',value:1},{text:'作者',value:2},{text:'出版社',value:3}],
             click:false,
             search:'',
             panel:false,
             filter:{
-                type:'全文'
+                value: 0
             },
         }
     },
     methods:{
         searching(){
             if(this.search !=''){
-                this.$router.push('/search/'+ this.filter.type + '/' + this.search)
+                this.$router.push('/search/'+ this.filter.value + '/' + this.search)
             }
         }
     },

@@ -23,11 +23,13 @@ export default {
         }
         let self = this
         api.search(this.type,this.searchname).then(res=>{
-            this.products = res.data.products
+            self.products = res.data.products
+            console.log(self.products)
         }).catch(error=>{
             alert('查無結果')
             self.$router.push('/')
         })
+        
     }
 }
 </script>
