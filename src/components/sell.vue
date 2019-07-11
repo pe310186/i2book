@@ -20,7 +20,6 @@ export default {
         let self = this
         api.getArticle(2).then(res=>{
             self.article = res.data.article.content
-            console.log(self.article)
         }).catch(error=>{
         })
     }

@@ -5,6 +5,7 @@ import Identify from './identify.vue'
 import BackToTop from 'vue-backtotop'
 import About from './about.vue'
 import Sell from './sell.vue'
+import ShoppingType from './shopping_type.vue'
 
 export default{
     Top:Top,
@@ -14,4 +15,5 @@ export default{
     BackToTop: BackToTop,
     About: About,
     Sell: Sell,
+    ShoppingType: ShoppingType,
 }

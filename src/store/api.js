@@ -26,7 +26,7 @@ export default {
         return client.get('/account',{headers: {'Auth': token}})
     },
     search(type,search){
-        return client.get()
+        return client.get('/product/search/' + type + '/' + search)
     },
     sendCode(token){
         return client.post('/account/sendCertification',{headers:{'Auth':token}})
@@ -41,9 +41,18 @@ export default {
         return client.put('/account/password/'+id,data,{headers:{"Auth":token}})
     },
     getCarousel(){
-        return client.get('./carousel')
+        return client.get('/carousel')
     },
     getArticle(id){
-        return client.get('./article/'+id)
+        return client.get('/article/'+id)
+    },
+    getAllProductType(){
+        return client.get('/product/type')
+    },
+    getAllProduct(){
+        return client.get('product/all')
+    },
+    getProduct(id){
+        return client.get('/product/' + id)
     }
 }

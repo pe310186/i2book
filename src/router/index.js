@@ -6,6 +6,7 @@ import Login from '@/components/pages/login'
 import Member from '@/components/pages/member'
 import Register from '@/components/pages/register'
 import Search from '@/components/pages/search'
+import Shopping from '@/components/pages/shopping'
 
 Vue.use(Router)
 
@@ -43,6 +44,12 @@ export default new Router({
       path:'/search/:type/:searchname',
       name:'Search',
       component: Search,
+      props:true,
+    },
+    {
+      path:'/shopping/:type',
+      name:'Shopping',
+      component:Shopping,
       props:true,
     }
   ]

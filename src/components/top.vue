@@ -8,7 +8,7 @@
             &nbsp;&nbsp;
             <v-toolbar-items>
                 <v-btn flat large href="#/home/about">關於我們</v-btn>
-                <v-btn flat large href="#/home/shopping">買二手書</v-btn>
+                <v-btn flat large href="#/shopping/0">買二手書</v-btn>
                 <v-btn flat large href="#/home/sell">賣二手書</v-btn>
                 <v-btn flat large href="#/member/information">會員專區</v-btn>
             </v-toolbar-items>

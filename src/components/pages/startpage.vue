@@ -57,7 +57,6 @@ export default {
     beforeMount(){
         let self = this
         api.getCarousel().then(res=>{
-            console.log(res.data.pics)
             self.carouselItems = res.data.pics
         }).catch(error=>{
         })
