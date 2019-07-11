@@ -7,6 +7,7 @@ import Member from '@/components/pages/member'
 import Register from '@/components/pages/register'
 import Search from '@/components/pages/search'
 import Shopping from '@/components/pages/shopping'
+import ProductView from '@/components/pages/product_view'
 
 Vue.use(Router)
 
@@ -51,6 +52,12 @@ export default new Router({
       name:'Shopping',
       component:Shopping,
       props:true,
+    },
+    {
+      path:'/product/:id',
+      name:'productView',
+      component:ProductView,
+      props:true
     }
   ]
 })

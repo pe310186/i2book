@@ -41,7 +41,6 @@ export default {
             filterType:[{text:'全文',value:0},{text:'書名',value:1},{text:'作者',value:2},{text:'出版社',value:3}],
             click:false,
             search:'',
-            panel:false,
             filter:{
                 value: 0
             },
