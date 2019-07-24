@@ -29,7 +29,7 @@ export default {
         return client.get('/product/search/' + type + '/' + search)
     },
     sendCode(token){
-        return client.post('/account/sendCertification',{headers:{'Auth':token}})
+        return client.post('/account/sendCertification',null,{headers:{'Auth':token}})
     },
     checkCode(token,code){
         return client.post('/account/checkCertification',{code:code},{headers:{'Auth':token}})
@@ -54,5 +54,8 @@ export default {
     },
     getProduct(id){
         return client.get('/product/' + id)
+    },
+    getOnsale(){
+        return client.get('/product/onsale')
     }
 }

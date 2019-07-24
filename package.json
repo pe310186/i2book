@@ -16,7 +16,7 @@
     "vue-backtotop": "^1.6.1",
     "vue-router": "^3.0.1",
     "vue-smart-pagination": "^2.0.9",
-    "vuetify": "^1.4.4"
+    "vuetify": "^1.5.16"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

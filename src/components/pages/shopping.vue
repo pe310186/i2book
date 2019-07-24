@@ -1,5 +1,5 @@
 <template>
-    <v-container >
+    <v-container>
         <top></top>
         <br>
         <br>
@@ -21,15 +21,16 @@
                 <v-card>
                     <v-layout row wrap>
                         <v-flex xs2 v-for="n in 50" v-bind:key=n>
-                            <v-card v-if="((page-1)*50)+n-1 < products.length" height="250px" flat>
+                            <v-card v-if="((page-1)*50)+n-1 < products.length" height="250px" flat :href="'#/product/' + products[n-1].id">
                                 <v-layout column>
                                     <center>
-                                        <br>
-                                        <p>{{products[n-1].title}}</p>
-                                        <v-img contain height="100px" v-bind:src=products[n-1].pic[0].url></v-img>
-                                        <br>
-                                            <p>售價:{{products[n-1].sell}}</p>
-                                    </center>
+                                    <br>
+                                    <b>{{products[n-1].title}}</b>
+                                    <v-img contain height="100px" width="90%" v-bind:src=products[n-1].pic[0].url></v-img>
+                                    <br>
+                                    <s>售價:{{products[n-1].price}}</s>
+                                    <b><font size="4" color="red">&nbsp;{{products[n-1].sell}}</font></b>
+                                </center>
                                 </v-layout>
                             </v-card>
                         </v-flex>
@@ -42,6 +43,9 @@
                 </v-card>
             </v-flex>
         </v-layout>
+        <back-to-top text="back to top" visibleoffset="0">
+            <v-btn icon large flat><v-icon large>keyboard_arrow_up</v-icon></v-btn>
+        </back-to-top>
         <bottom></bottom>
     </v-container>
 </template>
@@ -105,7 +109,7 @@ export default {
     beforeMount(){
         let self = this
         api.getAllProduct().then(res=>{
-            self.allProductItems = res.data.products
+            self.allProductItems = res.data.products.reverse()
             api.getAllProductType().then(res=>{
                 self.allTypeItems = res.data.types
                 let subType = self.getSubType(self.type)

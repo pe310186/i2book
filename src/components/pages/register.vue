@@ -16,7 +16,7 @@
                             <br>
                             <v-flex xs10 md10 lg10>
                                 <v-text-field label="姓名"  outline v-model="name" :rules="[() => !!name || '請輸入姓名']" required ref="name"></v-text-field>
-                                <v-text-field label="帳號" :error-messages="errorMessages1" outline v-model="account" :rules="[() => !!account || '請輸入帳號']" required ref="account"></v-text-field>
+                                <v-text-field label="帳號" :error-messages="errorMessages1" outline v-model="account" :rules="[() => !!account || '請輸入帳號']" required ></v-text-field>
                                 <v-text-field label="密碼" outline v-model="password" type='password' :rules="[() => !!password || '請輸入密碼']" required ref="password"></v-text-field>
                                 <v-text-field label="確認密碼" outline v-model="passwordCheck" type='password' :rules="[() => !!passwordCheck || '請輸入確認密碼']" required ref="passwordCheck"></v-text-field>
                                 <v-text-field label="電子信箱" :error-messages="errorMessages2" outline v-model="email" :rules="[() => !!email || '請輸入電子信箱']" required ref="email"></v-text-field>
@@ -99,6 +99,12 @@ export default {
     },
     watch: {
         'account' (newAccount,oldAccount){
+            // const patt =  /[0-9|a-z|A-Z]+/g
+            // var str = patt.exec(newAccount)
+            // this.account =  ''
+            // this.account = str[0]
+            // console.log(this.account)
+            // newAccount = this.account
             api.checkAccount(newAccount).then(()=>{
                 this.errorMessages1 = '此帳號已被使用'
             }).catch(error=>{
@@ -114,7 +120,7 @@ export default {
         }
     },
     computed:{
-        form(){
+        form() {
             return {
                 name: this.name,
                 account: this.account,
@@ -122,7 +128,7 @@ export default {
                 passwordCheck: this.passwordCheck,
                 email: this.email
             }
-        }
+        },
     },
     methods:{
         createCode(){
@@ -138,14 +144,6 @@ export default {
         },
         register(){
             const checkList=['name','account','password','passwordCheck','email','code']
-
-            this.formHasErrors = false
-            Object.keys(this.form).forEach(f => {
-                if (!this.form[f] || this.form[f]=='') {
-                    this.formHasErrors = true
-                }
-                this.$refs[f].validate(true)
-            })
 
             for(var i of checkList){
                 if(this[i] == '' || this[i]==null){
@@ -191,6 +189,7 @@ export default {
                 email: this.email,
                 newsletter: this.newsletter
             }
+            console.log(obj)
             api.register(obj).then(()=>{
                 alert("註冊成功")
                 window.location.reload();

@@ -20,7 +20,7 @@
             </v-toolbar-items>
             <v-toolbar-items v-else-if="loginFlag==true">
                 <v-layout align-center>
-                <v-card-text><font size="3" class="context-menu">歡迎!&nbsp;&nbsp;&nbsp;<b>{{account.name}}</b></font></v-card-text>
+                    <v-card-text><font size="3" class="context-menu">歡迎!&nbsp;&nbsp;&nbsp;<b>{{account.name}}</b></font></v-card-text>
                 </v-layout>
                 <v-btn flat small @click="logout">登出</v-btn>
                 <v-btn flat icon href="#/home/cartlist"><v-icon large  class="pointer" light>shopping_cart</v-icon></v-btn>
