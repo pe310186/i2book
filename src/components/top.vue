@@ -1,16 +1,35 @@
 <template>
     <v-container>
-        <v-toolbar fixed flat  height="80">
+        <v-toolbar fixed flat  height="120" color="gray lighten-4">
             <v-spacer></v-spacer>
             <v-toolbar-items>           
                 <v-layout align-center><a href="/#/"><v-img contain class="pointer" width="120px" src="http://localhost:3000/uploadedFile/i2books.png"></v-img></a></v-layout>
             </v-toolbar-items>
-            &nbsp;&nbsp;
+            &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
             <v-toolbar-items>
-                <v-btn flat large href="#/home/about">關於我們</v-btn>
-                <v-btn flat large href="#/shopping/0">買二手書</v-btn>
-                <v-btn flat large href="#/home/sell">賣二手書</v-btn>
-                <v-btn flat large href="#/member/information">會員專區</v-btn>
+                <v-layout align-center>
+                    <a href="/#/home/about">
+                        <v-img contain class="pointer" width="120px" src="http://localhost:3000/uploadedFile/關於我.png"> </v-img>
+                    </a>
+                </v-layout>
+                 &nbsp;&nbsp;
+                 <v-layout align-center>
+                    <a href="/#/shopping/0">
+                        <v-img contain class="pointer" width="120px" src="http://localhost:3000/uploadedFile/買二手書.png"></v-img>
+                    </a>
+                </v-layout>
+                 &nbsp;&nbsp;
+                 <v-layout align-center>
+                    <a href="/#/home/sell">
+                        <v-img contain class="pointer" width="120px" src="http://localhost:3000/uploadedFile/賣二手書.png"></v-img>
+                    </a>
+                </v-layout>
+                 &nbsp;&nbsp;
+                 <v-layout align-center>
+                    <a href="/#/member/information">
+                        <v-img contain class="pointer" width="120px" src="http://localhost:3000/uploadedFile/會員專區.png"></v-img>
+                    </a>
+                </v-layout>
             </v-toolbar-items>
             <v-spacer></v-spacer>
             <v-toolbar-items v-if="loginFlag==false">

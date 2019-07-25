@@ -19,9 +19,11 @@
                 <br>
                 <p><v-icon color=#2E7D32>directions</v-icon>&nbsp;&nbsp;<font size="4">買二手書</font><font size="4" v-for="n in typeList.length" v-bind:key=n>   &nbsp;>&nbsp; {{typeList[n-1].name}} </font></p>
                 <v-card>
+                    <br>
+                    <br>
                     <v-layout row wrap>
-                        <v-flex xs2 v-for="n in 50" v-bind:key=n>
-                            <v-card v-if="((page-1)*50)+n-1 < products.length" height="250px" flat :href="'#/product/' + products[n-1].id">
+                        <v-flex md3 sm4  v-for="n in 40" v-bind:key=n>
+                            <v-card v-if="((page-1)*40)+n-1 < products.length" height="250px" flat :href="'#/product/' + products[n-1].id">
                                 <v-layout column>
                                     <center>
                                     <br>
@@ -34,7 +36,11 @@
                                 </v-layout>
                             </v-card>
                         </v-flex>
-                    </v-layout>   
+                    </v-layout>
+                    <v-flex offset-xs1 xs10>
+                        <v-divider></v-divider>
+                    </v-flex>
+                    <br>
                     <center>                     
                         <v-pagination v-model="page" :length="pages" color=#2E7D32></v-pagination>
                         <br>
@@ -131,7 +137,7 @@ export default {
                 }
                 self.typeList = []
                 self.getSuperType(self.type)
-                self.pages = Math.ceil(self.products.length/50)
+                self.pages = Math.ceil(self.products.length/40)
                 self.page = 1
             }).catch(error=>{
             })

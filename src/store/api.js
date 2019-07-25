@@ -50,7 +50,7 @@ export default {
         return client.get('/product/type')
     },
     getAllProduct(){
-        return client.get('product/all')
+        return client.get('product/all/visible')
     },
     getProduct(id){
         return client.get('/product/' + id)

@@ -3,7 +3,7 @@
         <v-card flat>
             <center><font size="4"><b>賣二手書</b></font></center>
             <br>
-            <div v-html="article"></div>
+            <div v-html="article" style="word-break: break-all;"></div>
         </v-card>
     </v-container>
 </template>

@@ -1,6 +1,8 @@
 <template>
     <v-container>
         <top></top>
+        <br>
+        <br>
         <v-layout row>
             <v-text-field placeholder="找好書..." solo  v-model="search"></v-text-field>
             <v-flex xs2 md2 lg2>
@@ -16,44 +18,44 @@
             </v-carousel-item>
         </v-carousel>
         <br>
-        <v-card height="300px">
+        <v-card>
             <v-card-text>特價商品:</v-card-text>
-                <v-layout row wrap>
-                    <v-flex xs2 v-for="n in 5" v-bind:key=n>
-                        <v-card v-if="n-1 < onSaleProducts.length" height="250px" flat :href="'#/product/' + onSaleProducts[n-1].id">
-                            <v-layout column>
-                                <center>
-                                    <br>
-                                    <b>{{onSaleProducts[n-1].title}}</b>
-                                    <v-img contain height="100px" width="90%" v-bind:src=onSaleProducts[n-1].pic[0].url></v-img>
-                                    <br>
-                                    <s>售價:{{onSaleProducts[n-1].price}}</s>
-                                    <b><font size="4" color="red">&nbsp;{{onSaleProducts[n-1].sell}}</font></b>
-                                </center>
-                            </v-layout>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
+            <v-layout row wrap justify-space-around>
+                <v-flex xs2 v-for="n in 5" v-bind:key=n>
+                    <v-card v-if="n-1 < onSaleProducts.length" height="250px" flat :href="'#/product/' + onSaleProducts[n-1].id" style="background-color:rgba(255,255,255,0.5);">
+                        <v-layout column>
+                            <center>
+                                <br>
+                                <b>{{onSaleProducts[n-1].title}}</b>
+                                <v-img contain height="100px" width="90%" v-bind:src=onSaleProducts[n-1].pic[0].url></v-img>
+                                <br>
+                                <s>售價:{{onSaleProducts[n-1].price}}</s>
+                                <b><font size="4" color="red">&nbsp;{{onSaleProducts[n-1].sell}}</font></b>
+                            </center>
+                        </v-layout>
+                    </v-card>
+                </v-flex>
+            </v-layout>
         </v-card>
         <br>
-        <v-card height="300px">
+        <v-card>
             <v-card-text>最新上架:</v-card-text>
-            <v-layout row wrap>
-                    <v-flex xs2 v-for="n in 5" v-bind:key=n>
-                        <v-card v-if="n-1 < lastestProducts.length" height="250px" flat :href="'#/product/' + lastestProducts[n-1].id">
-                            <v-layout column>
-                                <center>
-                                    <br>
-                                    <b>{{lastestProducts[n-1].title}}</b>
-                                    <v-img contain height="100px" width="90%" v-bind:src=lastestProducts[n-1].pic[0].url></v-img>
-                                    <br>
-                                    <s>售價:{{lastestProducts[n-1].price}}</s>
-                                    <b><font size="4" color="red">&nbsp;{{lastestProducts[n-1].sell}}</font></b>
-                                </center>
-                            </v-layout>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
+            <v-layout row wrap justify-space-around>
+                <v-flex xs2 v-for="n in 5" v-bind:key=n>
+                    <v-card v-if="n-1 < lastestProducts.length" height="250px" flat :href="'#/product/' + lastestProducts[n-1].id">
+                        <v-layout column>
+                            <center>
+                                <br>
+                                <b>{{lastestProducts[n-1].title}}</b>
+                                <v-img contain height="100px" width="90%" v-bind:src=lastestProducts[n-1].pic[0].url></v-img>
+                                <br>
+                                <s>售價:{{lastestProducts[n-1].price}}</s>
+                                <b><font size="4" color="red">&nbsp;{{lastestProducts[n-1].sell}}</font></b>
+                            </center>
+                        </v-layout>
+                    </v-card>
+                </v-flex>
+            </v-layout>
         </v-card>
         <br>
         <v-card height="300px">
@@ -131,4 +133,10 @@ export default {
 .context-menu {
     cursor: context-menu;
 }
+/* body {
+    background: -webkit-linear-gradient(top,rgba(255, 241, 169, 0.7),rgba(176, 255, 127, 0.5));
+    background: -o-linear-gradient(bottom,rgba(255, 241, 169, 0.7),rgba(176, 255, 127, 0.5));
+    background: -moz-linear-gradient(bottom,rgba(255, 241, 169, 0.7),rgba(176, 255, 127, 0.5));
+    background: linear-gradient(to bottom,rgba(255, 241, 169, 0.7),rgba(176, 255, 127, 0.5));
+} */
 </style>
