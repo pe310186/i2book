@@ -87,7 +87,6 @@ export default {
                 {link:'update',title:'修改會員資料',hf:"#/member/update"},
                 {link:'password',title:'修改密碼',hf:'#/member/password'},
                 {link:'order',title:'訂單查詢',hf:"#/member/order"},
-                {link:'record',title:'賣書紀錄',hf:"#/member/record"},
                 {link:'like',title:'我的最愛',hf:"#/member/like"}
             ],
             account:null,

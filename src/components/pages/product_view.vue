@@ -9,10 +9,10 @@
             <v-btn icon color="green darken-3" @click="searching()"><v-icon color="white">search</v-icon></v-btn> 
         </v-layout>
         <v-layout row>
-            <v-flex xs2>
+            <v-flex xs3>
             <shoppingType :type = 0></shoppingType>
             </v-flex>
-            <v-flex xs10>
+            <v-flex xs9>
                 <br>
                 <br>
                 <v-card>
@@ -113,7 +113,6 @@ export default {
     },
     methods:{
         buy(){
-
         },
         like(){
 

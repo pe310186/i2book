@@ -11,19 +11,20 @@
             <v-btn icon color="green darken-3" @click="searching()"><v-icon color="white">search</v-icon></v-btn> 
         </v-layout>
         <v-layout row >
-            <v-flex xs2>
+            <v-flex xs3>
                 <ShoppingType :type="type"></ShoppingType>
             </v-flex>
-            <v-flex xs10>
+            <v-flex xs9>
                 <br>
                 <br>
                 <p><v-icon color=#2E7D32>directions</v-icon>&nbsp;&nbsp;<font size="4">買二手書</font><font size="4" v-for="n in typeList.length" v-bind:key=n>   &nbsp;>&nbsp; {{typeList[n-1].name}} </font></p>
                 <v-card>
                     <br>
                     <br>
-                    <v-layout row wrap>
-                        <v-flex md3 sm4  v-for="n in 40" v-bind:key=n>
-                            <v-card v-if="((page-1)*40)+n-1 < products.length" height="250px" flat :href="'#/product/' + products[n-1].id">
+                    <v-layout row wrap justify-space-around>
+                        <v-flex md3 sm4 v-for="n in numPerPage" v-bind:key=n>
+                            <br>
+                            <v-card v-if="((page-1)*numPerPage)+n-1 < products.length" height="250px" flat :href="'#/product/' + products[n-1].id">
                                 <v-layout column>
                                     <center>
                                     <br>
@@ -35,6 +36,7 @@
                                 </center>
                                 </v-layout>
                             </v-card>
+                            <br>
                         </v-flex>
                     </v-layout>
                     <v-flex offset-xs1 xs10>
@@ -70,6 +72,7 @@ export default {
             },
             page:1,
             pages:1,
+            numPerPage:40,
             products:[],
             allProductItems:[],
             allTypeItems:[],
@@ -137,7 +140,7 @@ export default {
                 }
                 self.typeList = []
                 self.getSuperType(self.type)
-                self.pages = Math.ceil(self.products.length/40)
+                self.pages = Math.ceil(self.products.length/self.numPerPage)
                 self.page = 1
             }).catch(error=>{
             })

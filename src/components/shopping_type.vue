@@ -1,7 +1,13 @@
 <template>
     <v-container>
-        <v-layout column v-for="n in types" v-bind:key=n.id>
-            <v-btn :href="'#/shopping/' + n.id" @click="changeRoute(n.id)">{{n.name}}</v-btn>
+        <br>
+        <br>
+        <v-layout align-content-start column>
+            <v-treeview  :items="treeData">
+                <template slot="label" slot-scope="props">
+                    <a :href='"/#/shopping/" + props.item.id' @click="changeRoute(props.item.id)" style="text-decoration:none;"><v-btn block flat>{{props.item.name}}</v-btn></a>
+                </template>
+            </v-treeview>
         </v-layout>
     </v-container>
 </template>
@@ -13,7 +19,7 @@ export default {
     data(){
         return {
             types:[],
-            typeItems:[],
+            treeData:[],
         }
     },
     methods:{
@@ -23,31 +29,38 @@ export default {
         changeRoute(url){
             location.href = '#/shopping/' + url
             window.location.reload()
-        }
+        },
+        treeGen()
+        {
+            this.treeData = this.getSubTree(0)
+
+        },
+        getSubTree(superTypeID)
+        {
+            let subTree = []
+            for(var i in this.types){
+                if(this.types[i].super_id == superTypeID){
+                    let obj = {
+                    }
+                    obj.name = this.types[i].name
+                    obj.id = this.types[i].id
+                    subTree.push(obj)
+                }
+            }
+
+            if(subTree.length!=0){
+                for(var i in subTree){
+                    subTree[i].children = this.getSubTree(subTree[i].id)
+                }
+                return subTree
+            }
+        },
     },
     beforeMount(){
         let self = this
         api.getAllProductType().then(res=>{
-            self.types = []
-            for(var i in res.data.types){
-                if(res.data.types[i].super_id == self.type){
-                    self.types.push(res.data.types[i])
-                }
-            }
-            if(self.type != 0){
-                let obj  = {
-                    name:'回上層',
-                    id:null,
-                }
-                for(var i in res.data.types){
-                    if(res.data.types[i].id == self.type){
-                        obj.id = res.data.types[i].super_id
-                    }
-                }
-                if(obj.id == null)
-                obj.id = 0
-                self.types.push(obj)
-            }
+            self.types = res.data.types
+            self.treeGen()
         })
     }
 }

@@ -57,5 +57,8 @@ export default {
     },
     getOnsale(){
         return client.get('/product/onsale')
-    }
+    },
+    getHot(){
+        return client.get('/product/hot')
+    },
 }
