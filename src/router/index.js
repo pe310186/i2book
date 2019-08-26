@@ -8,6 +8,7 @@ import Register from '@/components/pages/register'
 import Search from '@/components/pages/search'
 import Shopping from '@/components/pages/shopping'
 import ProductView from '@/components/pages/product_view'
+import CartList from '@/components/pages/cartlist'
 
 Vue.use(Router)
 
@@ -57,6 +58,12 @@ export default new Router({
       path:'/product/:id',
       name:'productView',
       component:ProductView,
+      props:true
+    },
+    {
+      path:'/cartlist',
+      name:'CartList',
+      component:CartList,
       props:true
     }
   ]

@@ -30,12 +30,15 @@
                         <v-layout column>
                             <center>
                                 <br>
-                                <br>
                                 <b>{{onSaleProducts[n-1].title}}</b>
+                                <br>
+                                <br>
                                 <v-img contain height="100px" width="90%" v-bind:src=onSaleProducts[n-1].pic[0].url></v-img>
                                 <br>
-                                <s>售價:{{onSaleProducts[n-1].price}}</s>
-                                <b><font size="4" color="red">&nbsp;{{onSaleProducts[n-1].sell}}</font></b>
+                                <div>售價:&nbsp;NT$&nbsp;
+                                    <s>{{onSaleProducts[n-1].price}}</s>
+                                    <b><font size="4" color="red">&nbsp;{{onSaleProducts[n-1].sell}}</font></b>
+                                </div>
                             </center>
                         </v-layout>
                     </v-card>
@@ -56,8 +59,9 @@
                         <v-layout column>
                             <center>
                                 <br>
-                                <br>
                                 <b>{{lastestProducts[n-1].title}}</b>
+                                <br>
+                                <br>
                                 <v-img contain height="100px" width="90%" v-bind:src=lastestProducts[n-1].pic[0].url></v-img>
                                 <br>
                                 <s>售價:{{lastestProducts[n-1].price}}</s>
@@ -76,12 +80,13 @@
             <v-layout row wrap justify-space-around>
                 <v-flex xs2 v-for="n in 5" v-bind:key=n>
                     <br>
-                    <v-card v-if="n-1 < hotProducts.length" height="220px" :href="'#/product/' + hotProducts[n-1].id" style="background-color:rgba(255,255,255,0.5);">
+                    <v-card v-if="n-1 < hotProducts.length" height="220px" :href="'#/product/' + hotProducts[n-1].id" >
                         <v-layout column>
                             <center>
                                 <br>
-                                <br>
                                 <b>{{hotProducts[n-1].title}}</b>
+                                <br>
+                                <br>
                                 <v-img contain height="100px" width="90%" v-bind:src=hotProducts[n-1].pic[0].url></v-img>
                                 <br>
                                 <s>售價:{{hotProducts[n-1].price}}</s>
@@ -104,8 +109,9 @@
                         <v-layout column>
                             <center>
                                 <br>
-                                <br>
                                 <b>{{hundProducts[n-1].title}}</b>
+                                <br>
+                                <br>
                                 <v-img contain height="100px" width="90%" v-bind:src=hundProducts[n-1].pic[0].url></v-img>
                                 <br>
                                 <s>售價:{{hundProducts[n-1].price}}</s>
@@ -181,7 +187,7 @@ export default {
         api.getAllProduct().then(res=>{
             self.lastestProducts = res.data.products.reverse()
             
-            for(var i in self.lastestProducts){
+            for(var i in self.lastestProducts){//沒圖
                 if(self.lastestProducts[i].pics == 0){
                     let obj = {
                         url:"http://localhost:3000/uploadedFile/null.png"
@@ -196,7 +202,7 @@ export default {
                 }
             }
 
-            for(var i in self.hundProducts){
+            for(var i in self.hundProducts){//沒圖
                 if(self.hundProducts[i].pics == 0){
                     let obj = {
                         url:"http://localhost:3000/uploadedFile/null.png"
@@ -212,7 +218,6 @@ export default {
 
         api.getHot().then(res=>{
             self.hotProducts = res.data.products
-            console.log(res.data.products)
 
             for(var i in self.hotProducts){
                 if(self.hotProducts[i].pics == 0){
@@ -223,7 +228,6 @@ export default {
                 }
             }
             self.hotProducts = self.shuffle(self.hundProducts)
-            console.log(self.hotProducts)
 
         }).catch(error=>{
         })

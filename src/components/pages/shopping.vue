@@ -24,11 +24,13 @@
                     <v-layout row wrap justify-space-around>
                         <v-flex md3 sm4 v-for="n in numPerPage" v-bind:key=n>
                             <br>
-                            <v-card v-if="((page-1)*numPerPage)+n-1 < products.length" height="250px" flat :href="'#/product/' + products[n-1].id">
+                            <v-card v-if="((page-1)*numPerPage)+n-1 < products.length" height="250px"  :href="'#/product/' + products[n-1].id">
                                 <v-layout column>
                                     <center>
                                     <br>
                                     <b>{{products[n-1].title}}</b>
+                                    <br>
+                                    <br>
                                     <v-img contain height="100px" width="90%" v-bind:src=products[n-1].pic[0].url></v-img>
                                     <br>
                                     <s>售價:{{products[n-1].price}}</s>

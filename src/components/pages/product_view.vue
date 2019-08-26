@@ -1,6 +1,8 @@
 <template>
     <v-container>
-        <top></top>
+        <top :rerender="rerender"></top>
+        <br>
+        <br>
         <v-layout row>
             <v-text-field placeholder="找好書..." solo  v-model="search"></v-text-field>
             <v-flex xs2 md2 lg2>
@@ -8,6 +10,31 @@
             </v-flex>
             <v-btn icon color="green darken-3" @click="searching()"><v-icon color="white">search</v-icon></v-btn> 
         </v-layout>
+        <v-dialog v-model="dialog" width="200px" persistent>
+            <v-card color="grey lighten-5">
+                <center style="background-color:#EEEEEE;">
+                    <br>
+                    <font size="4">
+                        <p>確認視窗</p>
+                    </font>
+                    <v-divider></v-divider>
+                </center>
+                <center>
+                    <br>
+                    <font size="4">
+                        <p>此商品重複選購</p>
+                    </font>
+                    <v-btn @click='dialog = false' color="gray lighten-4">確定</v-btn>
+                    <br>
+                    <br>
+                </center>
+            </v-card>
+        </v-dialog>
+        <v-snackbar v-model="snackbar" top right>
+            <v-layout align-cente>
+                <center>已放進購物車</center>
+            </v-layout>
+        </v-snackbar>
         <v-layout row>
             <v-flex xs3>
             <shoppingType :type = 0></shoppingType>
@@ -109,16 +136,46 @@ export default {
                 value: 0
             },
             otherProducts:[],
+            dialog:false,
+            snackbar:false,
+            rerender:false,
         }
     },
     methods:{
         buy(){
+            var shoppingCart = localStorage.getItem('shoppingCart')
+            if(shoppingCart == null){
+                shoppingCart = []
+            }
+            else{
+                shoppingCart = JSON.parse(shoppingCart)
+            }
+            for(var i in shoppingCart){
+                if(shoppingCart[i].id == this.product.id){
+                    this.dialogText = "此商品重複選購"
+                    this.dialog = true
+                    return
+                }
+            }
+            let obj = {
+                id: this.product.id,
+                title: this.product.title,
+                pic: this.product.pic[0],
+                price: this.product.price,
+                sell: this.product.sell
+            }
+            shoppingCart.push(obj)
+            localStorage.setItem('shoppingCart',JSON.stringify(shoppingCart))
+            this.snackbar = true
+            this.rerender = true
         },
         like(){
 
-        }
+        },
     },
     beforeMount(){
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
         let self = this
         api.getProduct(this.id).then(res=>{
             self.product = res.data.product
