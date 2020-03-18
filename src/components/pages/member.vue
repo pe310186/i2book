@@ -44,26 +44,46 @@
                             </font>
                         </v-card>
                         <v-card flat v-else-if="path=='update'">
-                            <font size="4">
-                                 <p>帳號:&nbsp;{{account.account}}</p>
-                                <v-flex xs6><v-text-field label="名稱" v-model="account.name"></v-text-field></v-flex>
-                                <v-flex xs6><v-text-field label="email" v-model="account.email" hint="信箱修改後需要重新認證"></v-text-field></v-flex>
-                                <v-flex xs6><v-text-field label="手機" v-model="account.cellphone"></v-text-field></v-flex>
-                                <v-flex xs6><v-text-field label="地址" v-model="account.address"></v-text-field></v-flex>
-                            </font>
-                            <v-btn @click="save()"><v-icon>save</v-icon>&nbsp;保存</v-btn>
+                            <div v-if="account.fb != 1">
+                                <font size="4">
+                                    <p>帳號:&nbsp;{{account.account}}</p>
+                                    <v-flex xs6><v-text-field label="名稱" v-model="account.name"></v-text-field></v-flex>
+                                    <v-flex xs6><v-text-field label="email" v-model="account.email" hint="信箱修改後需要重新認證"></v-text-field></v-flex>
+                                    <v-flex xs6><v-text-field label="手機" v-model="account.cellphone"></v-text-field></v-flex>
+                                    <v-flex xs6><v-text-field label="地址" v-model="account.address"></v-text-field></v-flex>
+                                </font>
+                                <v-btn @click="save()"><v-icon>save</v-icon>&nbsp;保存</v-btn>
+                            </div>
+                            <div v-else>
+                                <center>
+                                    <br>
+                                    <font size="5">
+                                        <b>此為facebook帳戶因此無法修改會員資料</b>
+                                    </font>
+                                </center>
+                            </div>
                         </v-card>
                         <v-card flat v-else-if="path=='password'">
-                            <v-flex xs5>
-                                <v-text-field label="舊密碼" type='password' outline v-model="password.oldPass" :rules="[() => !!password.oldPass || '請輸入密碼']" required ref="password.oldPass"></v-text-field>
-                            </v-flex>
-                            <v-flex xs5>
-                            <v-text-field label="新密碼" type='password' outline v-model="password.newPass" :rules="[() => !!password.newPass || '請輸入密碼']" required ref="password.newPass"></v-text-field>
-                            </v-flex>
-                            <v-flex xs5>
-                            <v-text-field label="確認新密碼" type='password' outline v-model="password.checkPass" :rules="[() => !!password.checkPass || '請輸入密碼']" required ref="password.checkPass"></v-text-field>
-                            </v-flex>
-                            <v-btn @click="changePassword()"><v-icon>vpn_key</v-icon>&nbsp;確認變更</v-btn>
+                            <div v-if="account.fb !=1">
+                                <v-flex xs5>
+                                    <v-text-field label="舊密碼" type='password' outline v-model="password.oldPass" :rules="[() => !!password.oldPass || '請輸入密碼']" required ref="password.oldPass"></v-text-field>
+                                </v-flex>
+                                <v-flex xs5>
+                                <v-text-field label="新密碼" type='password' outline v-model="password.newPass" :rules="[() => !!password.newPass || '請輸入密碼']" required ref="password.newPass"></v-text-field>
+                                </v-flex>
+                                <v-flex xs5>
+                                <v-text-field label="確認新密碼" type='password' outline v-model="password.checkPass" :rules="[() => !!password.checkPass || '請輸入密碼']" required ref="password.checkPass"></v-text-field>
+                                </v-flex>
+                                <v-btn @click="changePassword()"><v-icon>vpn_key</v-icon>&nbsp;確認變更</v-btn>
+                            </div>
+                            <div v-else>
+                                <center>
+                                    <br>
+                                    <font size="5">
+                                        <b>此為facebook帳戶因此無法修改密碼</b>
+                                    </font>
+                                </center>
+                            </div>
                         </v-card>
                     </v-layout>
                 </v-flex>
@@ -89,7 +109,7 @@ export default {
                 {link:'order',title:'訂單查詢',hf:"#/member/order"},
                 {link:'like',title:'我的最愛',hf:"#/member/like"}
             ],
-            account:null,
+            account:{},
             codeCheck:'',
             password:{
                 oldPass:'',
