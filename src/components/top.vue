@@ -65,7 +65,7 @@
                                     </a>
                                     <v-spacer></v-spacer>
                                     <v-layout column align-center>
-                                        <a :href='"/#/product/" + shoppingCartView[(n-1)].id'><p>{{shoppingCartView[(n-1)].title}}</p></a>
+                                        <a :href='"/#/product/" + shoppingCartView[(n-1)].id' style="text-decoration:none;color:black;"><p>{{shoppingCartView[(n-1)].title}}</p></a>
                                         <div>
                                             售價:&nbsp;NT$&nbsp;
                                             <s>{{shoppingCartView[(n-1)].price}}</s>

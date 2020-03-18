@@ -61,4 +61,11 @@ export default {
     getHot(){
         return client.get('/product/hot')
     },
+    facebook(id){
+        return client.get('/account/auth/facebook/callback?code=' + id)
+    },
+    fblogin(access_token){
+        console.log(access_token)
+        return client.post('/account/fblogin', {"access_token": access_token })
+    }
 }

@@ -7,6 +7,27 @@
     <meta name="URL" content="www.i2books.com.tw">
     <meta name="robots" content="index,nofollow"/>
     <title>i2books</title>
+    <!-- <script>
+    let url = window.location.href.replace('%23', '#')
+    let data = url.split("facebook")
+    if (data.length > 1) {
+      window.location.href = data[0] + "facebook/" + data[1].substring(5)
+    } else {
+      window.location.href = data[0]
+    }
+
+    </script> -->
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId            : '511837522949991',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v4.0'
+        });
+      };
+    </script>
   </head>
   <body>
     <div id="app"></div>

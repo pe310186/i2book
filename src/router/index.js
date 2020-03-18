@@ -9,6 +9,8 @@ import Search from '@/components/pages/search'
 import Shopping from '@/components/pages/shopping'
 import ProductView from '@/components/pages/product_view'
 import CartList from '@/components/pages/cartlist'
+import Checkout from '@/components/pages/checkout'
+//import api from '../store/api'
 
 Vue.use(Router)
 
@@ -65,6 +67,26 @@ export default new Router({
       name:'CartList',
       component:CartList,
       props:true
-    }
+    },
+    {
+      path:'/checkout',
+      name:'Checkout',
+      component:Checkout,
+      props:true
+    }, 
+    // {
+    //   path: '/facebook/:id',
+    //   beforeEnter: (to, from, next) => {
+    //     let id = window.location.href.split('facebook/')[1]
+    //     id = id.split("#")[0] + "#"
+    //     console.log(id)
+    //     api.facebook(id).then(res=>{
+    //       console.log(res.data);
+    //       next('/')
+    //     }).catch(error=>{
+    //       next('/login')
+    //     })
+    //   }
+    // }
   ]
 })

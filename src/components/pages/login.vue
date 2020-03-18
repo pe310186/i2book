@@ -2,6 +2,8 @@
     <v-container>
         <top></top>
         <br>
+        <br>
+        <br>
         <center>
             <v-card width="600px">
                 <br>
@@ -24,9 +26,7 @@
                 </v-layout>
                 </v-flex>
                 <v-flex xs8 md8 lg8>
-                    <v-btn block large>google</v-btn>
-                    <br>
-                    <v-btn block large>facebook</v-btn>
+                    <v-btn block large @click="fbLogin()">facebook</v-btn>
                 </v-flex>
                 <br>
             </v-card>
@@ -67,6 +67,31 @@ export default {
             document.body.scrollTop = 0
             document.documentElement.scrollTop = 0
             this.$router.push('/')
+        },
+        fbLogin() {
+            let self = this
+            FB.login(result=>{
+                if (result.authResponse) {
+                    api.fblogin(result.authResponse.accessToken).then(res=>{
+                         localStorage.setItem('token', res.data.token)
+                        alert('登入成功')
+                        self.$router.push('/')
+                    }).catch(error=>{
+                        console.log(error)
+                    })
+                }
+            })
+            // return new Promise((resolve, reject) => {
+            // FB.login(result => {
+            //     if (result.authResponse) {
+            //         api.fblogin(result.authResponse.accessToken).then(res=>{
+            //             console.log(res.data.token)
+            //         }).catch(error=>{
+                        
+            //         })
+            //     }
+            //     })
+            // })
         }
     },
     beforeMount(){

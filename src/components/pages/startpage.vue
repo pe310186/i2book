@@ -232,6 +232,11 @@ export default {
         }).catch(error=>{
         })
 
+        
+        // api.facebook().then(res=>{
+        //     console.log(res.data)
+        // }).catch(error=>{
+        //})
     },
     
 }
