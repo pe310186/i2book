@@ -65,7 +65,24 @@ export default {
         return client.get('/account/auth/facebook/callback?code=' + id)
     },
     fblogin(access_token){
-        console.log(access_token)
         return client.post('/account/fblogin', {"access_token": access_token })
+    },
+    buy(token,shoppingData){
+        return client.post('/order/buy',shoppingData,{headers:{"Auth":token}})
+    },
+    getOrder(token){
+        return client.get('/order',{headers:{"Auth":token}})
+    },
+    cancelOrder(token,id){
+        return client.delete('/order/'+id,{headers:{"Auth":token}})
+    },
+    like(token,id){
+        return client.post('/account/like/'+id,null,{headers:{"Auth":token}})
+    },
+    getLike(token){
+        return client.get('/account/like',{headers:{"Auth":token}})
+    },
+    cancelLike(token,id){
+        return client.delete('/account/like/'+id,{headers:{"Auth":token}})
     }
 }

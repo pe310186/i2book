@@ -81,21 +81,16 @@ export default {
                     })
                 }
             })
-            // return new Promise((resolve, reject) => {
-            // FB.login(result => {
-            //     if (result.authResponse) {
-            //         api.fblogin(result.authResponse.accessToken).then(res=>{
-            //             console.log(res.data.token)
-            //         }).catch(error=>{
-                        
-            //         })
-            //     }
-            //     })
-            // })
         }
     },
     beforeMount(){
-
+        let token = localStorage.getItem('token')
+        let self = this
+        api.getAccount(token).then(res=>{
+            alert('已登入')
+            self.$router.push('/')
+        }).catch(error=>{
+        })
     }
 }
 </script>

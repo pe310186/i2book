@@ -2,11 +2,14 @@
     <v-container>
         <top></top>
         <br>
+        <br>
         <v-card flat>
             <br>
             <v-layout row align-center justify-center>
                 <font size="4">
-                    <p v-bind:key=item.title v-for="item in list" v-if="item.link==path">會員專區 >{{item.title}}</p>
+                    <div v-bind:key=item.title v-for="item in list"> 
+                        <p v-if="item.link==path">會員專區 >{{item.title}}</p>
+                    </div>
                 </font>
             </v-layout>
             <br>
@@ -85,6 +88,105 @@
                                 </center>
                             </div>
                         </v-card>
+                        <v-card flat v-else-if="path=='order'">
+                            <v-data-table 
+                                :headers="order.headers"
+                                :items="order.list"
+                                :search="order.search"
+                                item-key="id"
+                                :pagination.sync="order.detail.pagination"
+                                class="elevation-1"
+                            >
+                                <template slot="headerCell" slot-scope="props">
+                                    <v-tooltip bottom>
+                                        <span slot="activator">
+                                        {{ props.header.text }}
+                                        </span>
+                                        <span>
+                                        {{ props.header.text }}
+                                        </span>
+                                    </v-tooltip>
+                                </template>
+                                <template slot="items" slot-scope="props">
+                                    <td>{{props.item.id}}</td>
+                                    <td>{{props.item.date}}</td>
+                                    <td>{{order.shipState[props.item.ship_type].text}}</td>
+                                    <td>{{props.item.money+order.shipState[props.item.ship_type].price}}</td>
+                                    <td>{{state[props.item.state]}}</td>
+                                    <td><v-btn small @click="orderDetail(props.item.id)">訂單內容</v-btn></td>
+                                    <td><v-btn small @click="cancelOrder(props.item.id)">取消訂單</v-btn></td>
+                                </template>
+                            </v-data-table>
+                            <br>
+                            <v-divider></v-divider>
+                            <v-dialog v-model="order.cancelDialog" width="300">
+                                <v-card width="300" height="200">
+                                    <center>
+                                        <br>
+                                        <br>
+                                        <font size="4">確定要取消此訂單?</font>
+                                    </center>
+                                    <br>
+                                    <br>
+                                    <v-layout row justify-center>
+                                        <v-btn @click="cancelOrderCheck(order.cancelID)">是</v-btn><v-btn @click="order.cancelDialog=false">否</v-btn>
+                                    </v-layout>
+                                    <br>
+                                </v-card>
+                            </v-dialog>
+                            <br>
+                            <v-card flat v-if="this.order.detail.list.length!=0">
+                                <center><font size="4"><p>訂單內容</p></font></center>
+                                <v-data-table 
+                                    :headers="order.detail.headers"
+                                    :items="order.detail.list"
+                                    item-key="id"
+                                    :pagination.sync="order.pagination"
+                                    class="elevation-1"
+                                >
+                                <template slot="headerCell" slot-scope="props">
+                                    <v-tooltip bottom>
+                                        <span slot="activator">
+                                        {{ props.header.text }}
+                                        </span>
+                                        <span>
+                                        {{ props.header.text }}
+                                        </span>
+                                    </v-tooltip>
+                                </template>
+                                <template slot="items" slot-scope="props">
+                                    <td @click="changeRoute(props.item.id)" class="pointer">{{props.item.title}}</td>
+                                    <td @click="changeRoute(props.item.id)" class="pointer"><v-img contain :src='props.item.pic[0].url' width="180"></v-img></td>
+                                    <td @click="changeRoute(props.item.id)" class="pointer">{{props.item.sell}}</td>
+                                </template>
+                                </v-data-table>
+                            </v-card>
+                        </v-card>
+                        <v-card flat v-else-if="path=='like'">
+                            <v-data-table 
+                                    :headers="like.headers"
+                                    :items="like.list"
+                                    item-key="id"
+                                    :pagination.sync="like.pagination"
+                                    class="elevation-1"
+                                >
+                                <template slot="headerCell" slot-scope="props">
+                                    <v-tooltip bottom>
+                                        <span slot="activator">
+                                        {{ props.header.text }}
+                                        </span>
+                                        <span>
+                                        {{ props.header.text }}
+                                        </span>
+                                    </v-tooltip>
+                                </template>
+                                <template slot="items" slot-scope="props">
+                                    <td @click="changeRoute(props.item.id)" class="pointer">{{props.item.title}}</td>
+                                    <td @click="changeRoute(props.item.id)" class="pointer"><v-img contain :src='props.item.pic[0].url' width="180"></v-img></td>
+                                    <td><v-btn  icon @click="cancelLike(props.item.id)"><v-icon>close</v-icon></v-btn></td>
+                                </template>
+                            </v-data-table>
+                        </v-card>
                     </v-layout>
                 </v-flex>
             </v-layout>
@@ -116,6 +218,46 @@ export default {
                 newPass:'',
                 checkPass:''
             },
+            state:['訂單處理中','已出貨','訂單完成'],
+            order:{
+                headers:[
+                    {text:'訂單編號',align: 'left',sortable: false,value: 'id'},
+                    {text:'下單日期',align: 'left',sortable: true,value: 'date'},
+                    {text:'運送方式',align:'left',sortable:false,value:'ship_type'},
+                    {text:'金額',align: 'left',sortable: false,value: 'price'},
+                    {text:'貨品狀況',align: 'left',sortable: false,value: 'state'},
+                    {text:'詳細',align: 'center',sortable: false,value: 'content'},
+                    {text:'取消訂單',align: 'center',sortable: false,value: 'cancel'},
+                ],
+                shipState:[{type:0,text:'宅配+30',price:30}],
+                pagination:{
+                    sortBy: 'date',
+                    rowsPerPage: 5
+                },
+                search:'',
+                list:[],
+                detail:{
+                    headers:[
+                        {text:'書名',align:'left',sortable:false,value:'title'},
+                        {text:'封面',align:'center',sortable:false,value:'picture'},
+                        {text:'優惠價',align:'left',sortable:false,value:'price'},
+                    ],
+                    list:[],
+                },
+                cancelDialog:false,
+                cancelID:-1
+            },
+            like:{
+                headers:[
+                    {text:'標題',align:'left',sortable:false,value:'title'},
+                    {text:'封面',align:'left',sortable:false,value:'picture'},
+                    {text:'取消',align:'left',sortable:false,value:'cancel'}
+                ],
+                list:[],
+                pagination:{
+                    rowsPerPage: 5
+                },
+            }
         }
     },
     methods:{
@@ -185,6 +327,70 @@ export default {
                 document.documentElement.scrollTop = 0
                 window.location.reload()
             })
+        },
+        cancelOrder(id){
+            for(var i in this.order.list){
+                if(this.order.list[i].id == id){
+                    if(this.order.list[i].state==0){
+                        this.order.cancelID = id
+                        this.order.cancelDialog = true
+                    }
+                    else{
+                        this.order.cancelID = -1
+                        alert('此訂單無法取消')
+                    }
+                    break
+                }
+            }
+        },
+        cancelOrderCheck(id){
+            let token = localStorage.getItem('token')
+            let self = this
+            api.cancelOrder(token,id).then(res=>{
+                alert('取消成功')
+            }).catch(error=>{
+                alert('取消失敗')
+            }).then(()=>{
+                location.reload()
+            })
+        },
+        orderDetail(id){
+            this.order.detail.list = []
+            for(var i in this.order.list){
+                if(this.order.list[i].id == id){
+                    var cartlists =  JSON.parse(this.order.list[i].cartlist)
+                    for(var j in cartlists){
+                        let self = this
+                        api.getProduct(cartlists[j]).then(res=>{
+                            if(res.data.product.pics!=0){
+                                self.order.detail.list.push(res.data.product)
+                            }
+                            else{
+                                let prod = res.data.product
+                                let obj ={
+                                        url:"http://localhost:3000/uploadedFile/null.png"
+                                    }
+                                prod.pic.push(obj)
+                                self.order.detail.list.push(prod)
+                            }
+                        }).catch(error=>{
+                        })
+                    }
+                    break
+                }
+            }
+        },
+        changeRoute(id){
+            this.$router.push('/product/'+id)
+        },
+        cancelLike(id){
+            let token = localStorage.getItem('token')
+            api.cancelLike(token,id).then(()=>{
+                alert('刪除成功')
+                window.location.reload()
+            }).catch(error=>{
+
+            })
         }
     },
     beforeMount(){
@@ -198,10 +404,36 @@ export default {
             document.documentElement.scrollTop = 0
             self.$router.push('/login')
         })
+
+        api.getOrder(token).then(res=>{
+            self.order.list = res.data.orders
+            for(var i in self.order.list){
+                self.order.list[i].id = self.order.list[i].id.toString(16)
+            }
+        }).catch(error=>{
+        })
+
+        api.getLike(token).then(res=>{
+            self.like.list = res.data.list
+            
+            console.log(self.like.list)
+            for(var i in self.like.list){
+                if(self.like.list[i].pics==0){
+                    let obj = {
+                        url:"http://localhost:3000/uploadedFile/null.png"
+                    }
+                    self.like.list[i].pics=1
+                    self.like.list[i].pic.push(obj)
+                }
+            }
+        }).catch(error=>{
+        })
     }
 }
 </script>
 
 <style>
-
+.pointer {
+    cursor: pointer;
+}
 </style>

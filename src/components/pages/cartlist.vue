@@ -4,8 +4,7 @@
         <br>
         <br>
         <br>
-        <v-card>
-            
+        <v-card>    
             <v-data-table
             :headers="headers"
             :items="shoppingCartView"
@@ -135,6 +134,7 @@ export default {
                     this.numOfPrice -= parseInt(this.shoppingCartView[i].sell)
                     this.shoppingCartView.splice(i,1)
                     localStorage.setItem('shoppingCart',JSON.stringify(this.shoppingCartView))
+                    this.numOfList--
                     this.rerender = true
                     break
                 }
@@ -145,7 +145,29 @@ export default {
                 this.dialog = true
                 return
             }
-            this.$router.push('/checkout')
+            if(this.numOfList == 0){
+               alert('購物車內沒有商品')
+               return 
+            }
+            let token = localStorage.getItem('token')
+            let self = this
+            let loginFlag = true
+            api.getAccount(token).then(res=>{
+                if(res.data.account.mailCheck !='' ){
+                    alert('帳號信箱驗證未通過')
+                    loginFlag = false
+                    this.$router.push('/member/information')
+                    return
+                }
+            }).catch(error=>{
+                alert('請先登入')
+                loginFlag = false
+                self.$router.push('./login')
+            }).then(()=>{
+                if(loginFlag == true){
+                    this.$router.push('/checkout')
+                }
+            })
         },
         removeNullProduct(){
             for(var i=0;i<this.shoppingCartView.length;i++){
@@ -172,7 +194,7 @@ export default {
                 {
                     if(self.shoppingCart[i].id == res.data.product.id){
                         obj = self.shoppingCart[i]
-                        if(res.data.product.number==1){
+                        if(res.data.product.number>=1){
                             obj.state = true
                             self.numOfList++
                             self.numOfPrice += parseInt(res.data.product.sell)

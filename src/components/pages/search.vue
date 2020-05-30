@@ -18,28 +18,6 @@
                 <br>
                 <br>
                 <p><v-icon color=#2E7D32>directions</v-icon>&nbsp;&nbsp;<font size="4">買二手書 > 搜尋 > {{searchname}}</font></p>
-                <!-- <v-card>
-                    <v-layout row wrap>
-                        <v-flex xs2 v-for="n in 50" v-bind:key=n>
-                            <v-card v-if="((page-1)*50)+n-1 < products.length" height="250px" flat>
-                                <v-layout column>
-                                    <center>
-                                        <br>
-                                        <p>{{products[n-1].title}}</p>
-                                        <v-img contain height="100px" v-bind:src=products[n-1].pic[0].url></v-img>
-                                        <br>
-                                            <p>售價:{{products[n-1].sell}}</p>
-                                    </center>
-                                </v-layout>
-                            </v-card>
-                        </v-flex>
-                    </v-layout>   
-                    <center>                     
-                        <v-pagination v-model="page" :length="pages" color=#2E7D32></v-pagination>
-                        <br>
-                        <br>
-                    </center>
-                </v-card> -->
                 <v-card>
                     <br>
                     <br>

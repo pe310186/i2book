@@ -31,8 +31,13 @@
             </v-card>
         </v-dialog>
         <v-snackbar v-model="snackbar" top right>
-            <v-layout align-cente>
+            <v-layout align-center>
                 <center>已放進購物車</center>
+            </v-layout>
+        </v-snackbar>
+        <v-snackbar v-model="snackbar2" top right>
+            <v-layout align-center>
+                <center>已加入我的最愛</center>
             </v-layout>
         </v-snackbar>
         <v-layout row>
@@ -63,13 +68,15 @@
                                     <p>作者:&nbsp;{{product.authors}}</p>
                                     <p>出版社:&nbsp;{{product.publisher}}</p>
                                     <p>ISBN:&nbsp;{{product.isbn}}</p>
-                                    <p>運送方式:&nbsp;</p>
+                                    <p v-if="product.number==0">商品狀況:&nbsp;<font color="red">已售罄</font></p>
+                                    <p v-else>商品狀況:&nbsp;可供貨</p>
                                     <p>定價:&nbsp;NT$&nbsp;<s>{{product.price}}</s></p>
                                     <p style="color:red;"><b>優惠價:&nbsp;NT$&nbsp;{{product.sell}}</b></p>
                                 </font>
                                 <br>
+                                
                                 <v-layout row>
-                                    <v-btn @click="buy()"><v-icon>shopping_cart</v-icon>加入購物車</v-btn>
+                                    <v-btn @click="buy()" v-if="product.number!=0"><v-icon>shopping_cart</v-icon>加入購物車</v-btn>
                                     <v-btn @click="like()"><v-icon color="red">favorite</v-icon>我有興趣</v-btn>
                                 </v-layout>
                             </v-layout>
@@ -97,7 +104,7 @@
                         <font size="4"><p>其他二手書推薦:</p></font>
                         <v-layout row wrap justify-space-around>
                             <v-flex xs2 v-for="n in 5" v-bind:key=n>
-                                <v-card v-if="n-1 < otherProducts.length" height="250px" flat :href="'#/product/' + otherProducts[n-1].id">
+                                <v-card v-if="n-1 < otherProducts.length" height="250px" flat class="pointer" @click="changeRoute(otherProducts[n-1].id)">
                                     <v-layout column>
                                         <center>
                                             <br>
@@ -138,12 +145,17 @@ export default {
             otherProducts:[],
             dialog:false,
             snackbar:false,
+            snackbar2:false,
             rerender:false,
         }
     },
     methods:{
         buy(){
             var shoppingCart = localStorage.getItem('shoppingCart')
+            if(this.number > this.product.number){
+                alert('商品數量不足')
+                return
+            }
             if(shoppingCart == null){
                 shoppingCart = []
             }
@@ -170,8 +182,55 @@ export default {
             this.rerender = true
         },
         like(){
+            let token = localStorage.getItem('token')
+            let self = this
+            api.like(token,this.product.id).then(()=>{
+                self.snackbar2 = true 
+            }).catch(error=>{
 
+            })
         },
+        changeRoute(id){
+            this.$router.push('/product/'+id)
+            window.location.reload()
+            document.body.scrollTop = 0
+            document.documentElement.scrollTop = 0
+            let self = this
+            api.getProduct(this.id).then(res=>{
+                self.product = res.data.product
+                if(self.product.pics == 0){
+                    let obj = {
+                        url:"http://localhost:3000/uploadedFile/null.png"
+                    }
+                    self.product.pic.push(obj)
+                }
+                if(self.product.number!=0){
+                    for(var i=1;i<=self.product.number;i++){
+                        self.selects.push(i)
+                    }
+                }
+                
+            }).catch(error=>{
+            })
+
+            api.getAllProduct().then(res=>{
+                self.otherProducts = []
+                for(var i =0; i<5;i++){
+                    if(i >= res.data.products.length)
+                        break
+                    self.otherProducts.push(res.data.products[Math.floor(Math.random()*res.data.products.length)])
+                }
+                for(var i =0; i < self.otherProducts.length;i++){
+                    if(self.otherProducts[i].pics == 0){
+                        let obj = {
+                            url:"http://localhost:3000/uploadedFile/null.png"
+                        }
+                        self.otherProducts[i].pic.push(obj)
+                    }
+                }
+            }).catch(error=>{
+            })
+        }
     },
     beforeMount(){
         document.body.scrollTop = 0
@@ -185,6 +244,12 @@ export default {
                 }
                 self.product.pic.push(obj)
             }
+            if(self.product.number!=0){
+                for(var i=1;i<=self.product.number;i++){
+                    self.selects.push(i)
+                }
+            }
+            
         }).catch(error=>{
         })
 
@@ -210,5 +275,7 @@ export default {
 </script>
 
 <style>
-
+.pointer {
+    cursor: pointer;
+}
 </style>
