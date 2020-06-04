@@ -368,7 +368,7 @@ export default {
                             else{
                                 let prod = res.data.product
                                 let obj ={
-                                        url:"http://localhost:3000/uploadedFile/null.png"
+                                        url:"http://210.61.46.101:8888//uploadedFile/null.png"
                                     }
                                 prod.pic.push(obj)
                                 self.order.detail.list.push(prod)
@@ -420,7 +420,7 @@ export default {
             for(var i in self.like.list){
                 if(self.like.list[i].pics==0){
                     let obj = {
-                        url:"http://localhost:3000/uploadedFile/null.png"
+                        url:"http://210.61.46.101:8888//uploadedFile/null.png"
                     }
                     self.like.list[i].pics=1
                     self.like.list[i].pic.push(obj)

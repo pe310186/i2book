@@ -200,7 +200,7 @@ export default {
                 self.product = res.data.product
                 if(self.product.pics == 0){
                     let obj = {
-                        url:"http://localhost:3000/uploadedFile/null.png"
+                        url:"http://210.61.46.101:8888/uploadedFile/null.png"
                     }
                     self.product.pic.push(obj)
                 }
@@ -223,7 +223,7 @@ export default {
                 for(var i =0; i < self.otherProducts.length;i++){
                     if(self.otherProducts[i].pics == 0){
                         let obj = {
-                            url:"http://localhost:3000/uploadedFile/null.png"
+                            url:"http://210.61.46.101:8888/uploadedFile/null.png"
                         }
                         self.otherProducts[i].pic.push(obj)
                     }
@@ -240,7 +240,7 @@ export default {
             self.product = res.data.product
             if(self.product.pics == 0){
                 let obj = {
-                    url:"http://localhost:3000/uploadedFile/null.png"
+                    url:"http://210.61.46.101:8888/uploadedFile/null.png"
                 }
                 self.product.pic.push(obj)
             }
@@ -263,7 +263,7 @@ export default {
             for(var i =0; i < self.otherProducts.length;i++){
                 if(self.otherProducts[i].pics == 0){
                     let obj = {
-                        url:"http://localhost:3000/uploadedFile/null.png"
+                        url:"http://210.61.46.101:8888/uploadedFile/null.png"
                     }
                     self.otherProducts[i].pic.push(obj)
                 }

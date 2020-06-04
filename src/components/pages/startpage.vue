@@ -176,7 +176,7 @@ export default {
             for(var i in self.onSaleProducts){
                 if(self.onSaleProducts[i].pics == 0){
                     let obj = {
-                        url:"http://localhost:3000/uploadedFile/null.png"
+                        url:"http://210.61.46.101:8888/uploadedFile/null.png"
                     }
                     self.onSaleProducts[i].pic.push(obj)
                 }
@@ -190,7 +190,7 @@ export default {
             for(var i in self.lastestProducts){//沒圖
                 if(self.lastestProducts[i].pics == 0){
                     let obj = {
-                        url:"http://localhost:3000/uploadedFile/null.png"
+                        url:"http://210.61.46.101:8888/uploadedFile/null.png"
                     }
                     self.lastestProducts[i].pic.push(obj)
                 }
@@ -205,7 +205,7 @@ export default {
             for(var i in self.hundProducts){//沒圖
                 if(self.hundProducts[i].pics == 0){
                     let obj = {
-                        url:"http://localhost:3000/uploadedFile/null.png"
+                        url:"http://210.61.46.101:8888/uploadedFile/null.png"
                     }
                     self.hundProducts[i].pic.push(obj)
                 }
@@ -222,7 +222,7 @@ export default {
             for(var i in self.hotProducts){
                 if(self.hotProducts[i].pics == 0){
                     let obj = {
-                        url:"http://localhost:3000/uploadedFile/null.png"
+                        url:"http://210.61.46.101:8888/uploadedFile/null.png"
                     }
                     self.hotProducts[i].pic.push(obj)
                 }
