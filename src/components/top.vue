@@ -30,6 +30,11 @@
                         <v-img contain class="pointer" width="120px" src="http://210.61.46.101:8888/uploadedFile/會員專區.png"></v-img>
                     </a>
                 </v-layout>
+                <v-layout align-center>
+                    <a href="https://www.facebook.com/%E5%8B%A4%E9%96%B1-i2books-116678076379324">
+                        <v-img contain class="pointer" width="120px" src="http://210.61.46.101:8888/uploadedFile/粉絲團.png"></v-img>
+                    </a>
+                </v-layout>
             </v-toolbar-items>
             <v-spacer></v-spacer>
             <v-toolbar-items v-if="loginFlag==false">

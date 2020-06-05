@@ -10,10 +10,10 @@
             </v-flex>
             <v-btn icon color="green darken-3" @click="searching()"><v-icon color="white">search</v-icon></v-btn> 
         </v-layout>
-        <v-carousel height="480px" hide-delimiters>
+        <v-carousel height="600px" hide-delimiters>
             <v-carousel-item v-for="(item,i) in carouselItems" :key="i" next-icon="mdi-dark mdi-arrow-right">
                 <v-layout fill-height justify-center align-center>
-                    <v-img :src="item.url" contain></v-img> 
+                    <v-img :src="item.url"></v-img> 
                 </v-layout>
             </v-carousel-item>
         </v-carousel>
